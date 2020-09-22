@@ -24,6 +24,17 @@ pub struct InstallOpt {
     force_yes: bool,
 }
 
+impl InstallOpt {
+    /// Generate options for installing a single package.
+    pub fn new_from_package(name: &str, version: &str) -> Self {
+        Self {
+            packages: vec![format!("{}@{}", name, version)],
+            global: false,
+            force_yes: true,
+        }
+    }
+}
+
 #[derive(Debug, Fail)]
 enum InstallError {
     #[fail(display = "Package not found in the registry: {}", name)]
